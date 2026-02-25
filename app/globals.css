@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1f1f1f;
 }
 
 @theme inline {
@@ -63,6 +63,45 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Adaptive input and button styles */
+input,
+textarea,
+select {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  border: 1px solid #ccc;
+}
+
+button {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  border: 1px solid #ccc;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #007bff;
+}
+
+button:active,
+button:focus {
+  outline: 2px solid #007bff;
+}
+
+@media (max-width: 600px) {
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 1rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    border-radius: 8px;
+  }
+}
+
 
 
 @media print {
