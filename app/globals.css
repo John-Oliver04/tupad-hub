@@ -81,7 +81,6 @@ select:focus {
   outline: 2px solid #007bff;
 }
 
-button:active,
 button:focus {
   outline: 2px solid #007bff;
 }
