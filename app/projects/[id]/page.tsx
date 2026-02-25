@@ -290,7 +290,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPreStep((s) => Math.max(0, s - 1))}
                 disabled={preStep === 0}
-                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
               >
                 Previous
               </button>
@@ -474,7 +474,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPostStep((s) => Math.max(0, s - 1))}
                 disabled={postStep === 0}
-                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
               >
                 Previous
               </button>

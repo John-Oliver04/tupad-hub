@@ -73,11 +73,7 @@ select {
   border: 1px solid #ccc;
 }
 
-button {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  border: 1px solid #ccc;
-}
+
 
 input:focus,
 textarea:focus,

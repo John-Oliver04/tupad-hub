@@ -74,19 +74,19 @@ export default function CostComputation({ values, onChange }: Props) {
         <ul className="space-y-2 text-sm">
           <li className="flex items-center justify-between">
             <span>Labor Cost</span>
-            <span className="font-medium">{fmt(result.laborCost)}</span>
+            <span className="font-medium text-blue-600">{fmt(result.laborCost)}</span>
           </li>
           <li className="flex items-center justify-between">
             <span>PPE</span>
-            <span className="font-medium">{fmt(result.ppe)}</span>
+            <span className="font-medium text-blue-600">{fmt(result.ppe)}</span>
           </li>
           <li className="flex items-center justify-between">
             <span>Insurance</span>
-            <span className="font-medium">{fmt(result.insurance)}</span>
+            <span className="font-medium text-blue-600">{fmt(result.insurance)}</span>
           </li>
           <li className="mt-2 border-t pt-2 text-base font-semibold flex items-center justify-between">
             <span>Total</span>
-            <span>{fmt(result.total)}</span>
+            <span className="text-red-500">{fmt(result.total)}</span>
           </li>
         </ul>
       </div>
