@@ -2,6 +2,7 @@
 import { notFound, useParams, useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import Card from "../../../components/Card";
+import { FadeInUp } from "../../../components/Motion";
 import { FormInput, FormTextArea } from "../../../components/FormInput";
 import CostComputation, { CostValues } from "../../../components/CostComputation";
 import useLocalStorage from "../../../hooks/useLocalStorage";
@@ -15,6 +16,8 @@ export default function ProjectDetailsPage() {
   const project = useMemo(() => projects.find((p) => p.id === params.id), [projects, params.id]);
 
   const [activeTab, setActiveTab] = useState<"pre" | "post">("pre");
+  const [preStep, setPreStep] = useState(0);
+  const [postStep, setPostStep] = useState(0);
 
   const [pre, setPre] = useState<PreDetails>(project?.preDetails ?? ({} as PreDetails));
   const [status, setStatus] = useState<ProjectStatus>(project?.status || "Pending");
@@ -129,8 +132,8 @@ export default function ProjectDetailsPage() {
         </div>
 
         {activeTab === "pre" ? (
-          <div className="space-y-4">
-            <details className="rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs" open>
+          <FadeInUp className="space-y-4" key={`pre-${preStep}`}>
+            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 0 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Project Information
               </summary>
@@ -186,7 +189,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
             
-            <details className="rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs" open>
+            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 1 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Document Tracking
               </summary>
@@ -221,8 +224,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-
-            <details className="rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs" open>
+            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 2 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Project Cost Computation
               </summary>
@@ -257,7 +259,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className="rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs" open>
+            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 3 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Implementation Details
               </summary>
@@ -284,12 +286,29 @@ export default function ProjectDetailsPage() {
                 />
               </div>
             </details>
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => setPreStep((s) => Math.max(0, s - 1))}
+                disabled={preStep === 0}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+              >
+                Previous
+              </button>
+              <span className="text-xs text-zinc-600">Step {preStep + 1} of 4</span>
+              <button
+                onClick={() => setPreStep((s) => Math.min(3, s + 1))}
+                disabled={preStep === 3}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
+              >
+                Next
+              </button>
+            </div>
 
             {/* Auto-saved */}
-          </div>
+          </FadeInUp>
         ) : (
-          <div className="space-y-4">
-            <Card title="Auto-filled from PRE DETAILS" className="border-amber-300">
+          <FadeInUp className="space-y-4" key={`post-${postStep}`}>
+            {/* <Card title="Auto-filled from PRE DETAILS" className="border-amber-300">
               <div className="grid gap-4 sm:grid-cols-2 text-sm">
                 <div>
                   <div className="font-medium text-zinc-700">ADL Number</div>
@@ -313,9 +332,9 @@ export default function ProjectDetailsPage() {
                   <div className="text-zinc-800">{pre.projectInformation?.location || "—"}</div>
                 </div>
               </div>
-            </Card>
+            </Card> */}
 
-            <details className="rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs" open>
+            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 0 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">
                 Document Tracking
               </summary>    
@@ -343,7 +362,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className="rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs" open>
+            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 1 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">
                 Project Verification
               </summary>  
@@ -395,7 +414,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className="rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs" open>
+            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 2 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">Project Cost Computation</summary>
               <div className="p-4">
                 <CostComputation
@@ -433,7 +452,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className="rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs" open>
+            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 3 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">Implementation Summary</summary>
               <div className="grid gap-4 p-4 sm:grid-cols-2">
                 <FormInput
@@ -451,9 +470,26 @@ export default function ProjectDetailsPage() {
                 />
               </div>
             </details>
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => setPostStep((s) => Math.max(0, s - 1))}
+                disabled={postStep === 0}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+              >
+                Previous
+              </button>
+              <span className="text-xs text-zinc-600">Step {postStep + 1} of 4</span>
+              <button
+                onClick={() => setPostStep((s) => Math.min(3, s + 1))}
+                disabled={postStep === 3}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
+              >
+                Next
+              </button>
+            </div>
 
             {/* Auto-saved */}
-          </div>
+          </FadeInUp>
         )}
       </Card>
     </div>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import Modal from "../../components/Modal";
+import { FadeInUp } from "../../components/Motion";
 import { FolderIcon, ArrowRightIcon, PlusIcon, PrintIcon } from "../../components/Icons";
 import { FormInput } from "../../components/FormInput";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -93,7 +94,7 @@ export default function ProjectsPage() {
           const s = summarize(p);
           const headBg = p.status === "Completed" ? "bg-green-50 text-green-900" : "bg-blue-50 text-blue-900";
           return (
-            <div key={p.id}>
+            <FadeInUp key={p.id}>
               <details className="mb-2" open={false}>
                 <summary className={`flex cursor-pointer list-none items-center justify-between rounded-md px-4 py-3 text-sm font-semibold ${headBg} border border-zinc-200`}>
                   <span className="flex items-center gap-2">
@@ -104,7 +105,7 @@ export default function ProjectsPage() {
                     {p.status || "Pending"}
                   </span>
                 </summary>
-                <div className="border border-t-0 border-zinc-200 p-4 bg-white">
+                <div className="accordion-content border border-t-0 border-zinc-200 p-4 bg-white">
                   <div className="mb-3 flex items-center justify-end gap-2">
                     <Link className="inline-flex items-center gap-1 rounded-md border border-zinc-300 bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-700" href={`/projects/${p.id}`}>
                       Open <ArrowRightIcon />
@@ -133,7 +134,7 @@ export default function ProjectsPage() {
                   </div>
                 </div>
               </details>
-            </div>
+            </FadeInUp>
           );
         })}
         {filtered.length === 0 && (

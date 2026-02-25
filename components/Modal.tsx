@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import { Fade, ScaleIn } from "./Motion";
 
 type ModalProps = {
   open: boolean;
@@ -22,9 +23,9 @@ export default function Modal({ open, title, onClose, actions, children }: Modal
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <Fade className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="absolute inset-0 flex items-center justify-center p-4">
-        <div className="w-full max-w-lg rounded-xl bg-white shadow-xl animate-fade-in-up">
+        <ScaleIn className="w-full max-w-lg rounded-xl bg-white shadow-xl">
           {(title || actions) && (
             <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-3">
               <h3 className="text-base font-semibold text-zinc-800">{title}</h3>
@@ -40,9 +41,8 @@ export default function Modal({ open, title, onClose, actions, children }: Modal
             </div>
           )}
           <div className="p-5">{children}</div>
-        </div>
+        </ScaleIn>
       </div>
     </div>
   );
 }
-
