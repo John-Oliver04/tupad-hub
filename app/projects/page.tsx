@@ -7,7 +7,7 @@ import { FolderIcon, ArrowRightIcon, PlusIcon, PrintIcon } from "../../component
 import { FormInput } from "../../components/FormInput";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { STORAGE_KEYS } from "../../utils/storage";
-import { Project, ProjectStatus } from "../../utils/types";
+import { Project } from "../../utils/types";
 
 type Draft = {
   adl: string;
@@ -20,19 +20,9 @@ const newDraft = (): Draft => ({ adl: "", beneficiaries: 0, municipality: "" });
 export default function ProjectsPage() {
   const [projects, setProjects] = useLocalStorage<Project[]>(STORAGE_KEYS.projects, []);
   const [draft, setDraft] = useState<Draft>(newDraft());
-  const [_search, _setSearch] = useState("");
-  const [_filterMunicipality, _setFilterMunicipality] = useState("");
-  const [_statusFilter, _setStatusFilter] = useState<ProjectStatus | "">("");
+  // filters intentionally removed
 
-  const add = () => {
-    if (!draft.adl || !draft.municipality) return;
-    const id = crypto.randomUUID();
-    setProjects([
-      ...projects,
-      { id, adl: draft.adl.trim(), beneficiaries: Number(draft.beneficiaries || 0), municipality: draft.municipality.trim(), status: "Pending", preDetails: {}, postDetails: {} } as Project,
-    ]);
-    setDraft(newDraft());
-  };
+  // inline create handled via modal
 
   const remove = (id: string) => setProjects(projects.filter((p) => p.id !== id));
 
@@ -40,17 +30,8 @@ export default function ProjectsPage() {
     return projects;
   }, [projects]);
 
-  const _municipalities = Array.from(new Set(projects.map((p) => p.municipality))).sort();
-
-  const exportJson = () => {
-    const blob = new Blob([JSON.stringify(projects, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "tupad-projects.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+  // persist open/closed states for details per project
+  const [openMap, setOpenMap] = useLocalStorage<Record<string, boolean>>("projects_open_map", {});
   const [openCreate, setOpenCreate] = useState(false);
   const openNew = () => {
     setDraft(newDraft());
@@ -95,7 +76,10 @@ export default function ProjectsPage() {
           const headBg = p.status === "Completed" ? "bg-green-50 text-green-900" : "bg-blue-50 text-blue-900";
           return (
             <FadeInUp key={p.id}>
-              <details className="mb-2" open={false}>
+              <details className="mb-2" open={!!openMap[p.id]} onToggle={(e) => {
+                const el = e.currentTarget as HTMLDetailsElement;
+                setOpenMap({ ...(openMap || {}), [p.id]: el.open });
+              }}>
                 <summary className={`flex cursor-pointer list-none items-center justify-between rounded-md px-4 py-3 text-sm font-semibold ${headBg} border border-zinc-200`}>
                   <span className="flex items-center gap-2">
                     <FolderIcon /> 

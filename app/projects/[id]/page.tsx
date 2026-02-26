@@ -129,6 +129,21 @@ export default function ProjectDetailsPage() {
           >
             POST DETAILS
           </button>
+          {activeTab === "pre" ? (
+            <div className="ml-auto hidden w-48 items-center gap-2 sm:flex">
+              <div className="h-2 w-full overflow-hidden rounded-full bg-blue-100">
+                <div className="h-full bg-blue-600" style={{ width: `${((preStep + 1) / 4) * 100}%` }} />
+              </div>
+              <span className="text-xs text-blue-900">Step {preStep + 1}/4</span>
+            </div>
+          ) : (
+            <div className="ml-auto hidden w-48 items-center gap-2 sm:flex">
+              <div className="h-2 w-full overflow-hidden rounded-full bg-green-100">
+                <div className="h-full bg-green-600" style={{ width: `${((postStep + 1) / 4) * 100}%` }} />
+              </div>
+              <span className="text-xs text-green-900">Step {postStep + 1}/4</span>
+            </div>
+          )}
         </div>
 
         {activeTab === "pre" ? (

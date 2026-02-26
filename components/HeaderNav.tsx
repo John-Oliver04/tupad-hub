@@ -9,7 +9,8 @@ export default function HeaderNav() {
   return (
     <header className="sticky top-0 z-20 border-b border-blue-900/20 bg-blue-800 text-white shadow">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-base font-semibold tracking-wide">
+        <Link href="/" className="flex items-center gap-2 text-base font-semibold tracking-wide">
+          <Image src={FavIcon} alt="Logo" width={22} height={22} className="rounded" />
           TUPAD HUB
         </Link>
         <nav className="flex items-center gap-2 text-sm">

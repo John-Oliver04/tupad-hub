@@ -34,8 +34,7 @@ export default function ProjectReportPage() {
   const pre = project.preDetails || {};
   const post = project.postDetails || {};
 
-  const currency = (n?: number) =>
-    new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 2 }).format(n || 0);
+  // currency formatting not used in this report version; keep lean
 
   return (
     <div className="mx-auto max-w-3xl p-4">
@@ -110,4 +109,3 @@ export default function ProjectReportPage() {
     </div>
   );
 }
-

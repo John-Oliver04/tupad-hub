@@ -42,6 +42,14 @@ details[open] .accordion-content {
   animation: accordion-open 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 /* Background image for app root */
 html, body {
   min-height: 100%;

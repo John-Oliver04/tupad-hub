@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TUPAD PROJECT MONITORING APP",
   description: "Local, mobile-first management for TUPAD Coordinators",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+    shortcut: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

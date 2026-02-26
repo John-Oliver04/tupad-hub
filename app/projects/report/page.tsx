@@ -36,8 +36,7 @@ export default function AllProjectsReportPage() {
     );
   }, [projects, query]);
 
-  const currency = (n?: number) =>
-    new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 2 }).format(n || 0);
+  // no currency formatting needed in table view
 
   return (
     <div className="mx-auto max-w-5xl p-4">

@@ -42,8 +42,8 @@ export default function ProfilePage() {
     projects.forEach((p) => {
       const pre = p.preDetails || {};
       const post = p.postDetails || {};
-      const ben = pre.projectInformation?.totalBeneficiaries ?? 0;
-      const fem = pre.projectInformation?.totalFemale ?? 0;
+      const ben = post.verification?.totalBeneficiariesActual ?? pre.projectInformation?.totalBeneficiaries ?? 0;
+      const fem = post.verification?.totalFemaleActual ?? pre.projectInformation?.totalFemale ?? 0;
       totalBeneficiaries += ben || 0;
       totalFemale += fem || 0;
     });
