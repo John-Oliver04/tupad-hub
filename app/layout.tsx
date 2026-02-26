@@ -35,6 +35,9 @@ export default function RootLayout({
       >
         <HeaderNav />
         <main className="mx-auto w-full max-w-5xl px-4 py-6">{children}</main>
+        <footer className="fixed bottom-0 left-0 w-full text-xs z-20 border-t border-blue-900/20 bg-blue-800 text-white shadow text-center py-3">
+          This system is not an official DOLE system. For internal use only.
+        </footer>
       </body>
     </html>
   );
