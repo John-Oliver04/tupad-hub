@@ -22,7 +22,7 @@ export default function ProjectReportPage() {
 
   if (!project) {
     return (
-      <div className="mx-auto max-w-3xl p-4">
+      <div className="mx-auto max-w-3xl p-4 mb-5">
         <div className="mb-4 flex items-center justify-between no-print">
           <button onClick={() => router.push("/projects")} className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50">Back</button>
         </div>
@@ -34,77 +34,92 @@ export default function ProjectReportPage() {
   const pre = project.preDetails || {};
   const post = project.postDetails || {};
 
+  function PrintTable({ rows }: { rows: [string, any][] }) {
+    return (
+      <table className="w-full border-collapse text-sm">
+        <tbody>
+          {rows.map(([label, value], index) => (
+            <tr key={index}>
+              <td className="border border-black p-2 font-medium w-1/3">
+                {label}
+              </td>
+              <td className="border border-black p-2">
+                {value || "-"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
   // currency formatting not used in this report version; keep lean
 
   return (
-    <div className="mx-auto max-w-3xl p-4">
+    <div className="mx-auto max-w-3xl p-4 mb-5">
       <div className="mb-4 flex items-center justify-between no-print">
         <button onClick={() => router.push(`/projects/${project.id}`)} className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50">Back</button>
         <button onClick={() => window.print()} className="rounded-md bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800">Print PDF</button>
       </div>
 
-      <div className="space-y-3 bg-white ">
-        <div>
-          <h1 className="text-xl font-semibold text-zinc-900 text-center">TUPAD Project Report</h1>
-          <div className="mt-1 text-sm text-zinc-600 text-center">ADL {project.adl} • {project.municipality}</div>
+      <div className="bg-white p-8 print:p-6">
+
+        {/* HEADER */}
+        <div className="text-center border-b border-black pb-4 mb-6">
+          <h1 className="text-xl font-bold tracking-wide">
+            TUPAD PROJECT REPORT
+          </h1>
+          <p className="text-sm mt-1">
+            ADL {project.adl} • {project.municipality}
+          </p>
         </div>
 
-        <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-zinc-800">PRE EMPLOYMENT DETAILS</h2>
-          <div className="grid gap-4">
-            
-            <div className="rounded-lg border border-zinc-200 p-4">
-              <h3 className="mb-2 text-sm font-semibold text-zinc-700">Project Information</h3>
-              <div className="space-y-1">
-                <Row label="Name & Nature of Project" value={pre.projectInformation?.nameNature || ""} />
-                <Row label="Name of Proponent" value={pre.projectInformation?.proponent || ""} />
-                <Row label="Project Location" value={pre.projectInformation?.location || ""} />
-                <Row label="Total Beneficiaries" value={pre.projectInformation?.totalBeneficiaries ?? project.beneficiaries ?? "" } />
-                <Row label="Total Female" value={pre.projectInformation?.totalFemale ?? ""} />
-                <Row label="No. of Days" value={pre.projectInformation?.noOfDays ?? ""} />
-              </div>
-            </div>
-            <div className="rounded-lg border border-zinc-200 p-4">
-              <h3 className="mb-2 text-sm font-semibold text-zinc-700">Document Tracking</h3>
-              <div className="space-y-1">
-                <Row label="Date Received from Regional Office" value={pre.documentTracking?.dateReceivedRO || ""} />
-                <Row label="Date Submitted to Regional Office" value={pre.documentTracking?.dateSubmittedRO || ""} />
-                <Row label="Notice to Proceed (Date)" value={pre.documentTracking?.noticeToProceedDate || ""} />
-              </div>
-            </div>
-            <div className="rounded-lg border border-zinc-200 p-4">
-              <h3 className="mb-2 text-sm font-semibold text-zinc-700">Implementation</h3>
-              <div className="space-y-1">
-                <Row label="Orientation Date" value={pre.implementation?.orientationDate || ""} />
-                <Row label="Implementation Period (Start - End)" value={(post.verification?.periodStart || "") + (post.verification?.periodEnd ? ` - ${post.verification?.periodEnd}` : "")} />
-                <Row label="Payment of Wages (Date)" value={pre.implementation?.paymentDate || ""} />
-                <Row label="Remarks" value={pre.implementation?.remarks || ""} />
-              </div>
-            </div>
-          </div>
+        {/* PRE EMPLOYMENT */}
+        <section className="mb-8">
+          <h2 className="text-sm font-bold border-b border-black pb-1 mb-4">
+            PRE-EMPLOYMENT DETAILS
+          </h2>
+
+          <PrintTable
+            rows={[
+              ["Name & Nature of Project", pre.projectInformation?.nameNature],
+              ["Name of Proponent", pre.projectInformation?.proponent],
+              ["Project Location", pre.projectInformation?.location],
+              ["Total Beneficiaries", pre.projectInformation?.totalBeneficiaries ?? project.beneficiaries],
+              ["Total Female", pre.projectInformation?.totalFemale],
+              ["No. of Days", pre.projectInformation?.noOfDays],
+              ["Date Received (RO)", pre.documentTracking?.dateReceivedRO],
+              ["Date Submitted (RO)", pre.documentTracking?.dateSubmittedRO],
+              ["Notice to Proceed", pre.documentTracking?.noticeToProceedDate],
+              ["Orientation Date", pre.implementation?.orientationDate],
+              ["Implementation Period",
+                (post.verification?.periodStart || "") +
+                  (post.verification?.periodEnd
+                    ? ` - ${post.verification?.periodEnd}`
+                    : "")
+              ],
+              ["Payment of Wages", pre.implementation?.paymentDate],
+              ["Remarks", pre.implementation?.remarks],
+            ]}
+          />
         </section>
 
-        <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-zinc-800">POST EMPLOYMENT DETAILS</h2>
-          <div className="grid gap-4">
-            
-            <div className="rounded-lg border border-zinc-200 p-4">
-              <h3 className="mb-2 text-sm font-semibold text-zinc-700">Project Verification</h3>
-              <div className="space-y-1">
-                <Row label="Total Beneficiaries (Actual Signed)" value={post.verification?.totalBeneficiariesActual ?? ""} />
-                <Row label="Total Female (Actual Signed)" value={post.verification?.totalFemaleActual ?? ""} />
-                <Row label="No. of Days of Work" value={post.verification?.noOfDaysOfWork ?? ""} />
-               </div>
-            </div>
-            <div className="rounded-lg border border-zinc-200 p-4">
-              <h3 className="mb-2 text-sm font-semibold text-zinc-700">Document Tracking</h3>
-              <div className="space-y-1">
-                <Row label="Date Received of Post Employment" value={post.documentTracking?.dateReceivedPost || ""} />
-                <Row label="Submitted to Regional Office (Date)" value={post.documentTracking?.dateSubmittedRO || ""} />
-              </div>
-            </div>
-          </div>
+        {/* POST EMPLOYMENT */}
+        <section>
+          <h2 className="text-sm font-bold border-b border-black pb-1 mb-4">
+            POST-EMPLOYMENT DETAILS
+          </h2>
+
+          <PrintTable
+            rows={[
+              ["Total Beneficiaries (Actual)", post.verification?.totalBeneficiariesActual],
+              ["Total Female (Actual)", post.verification?.totalFemaleActual],
+              ["No. of Days of Work", post.verification?.noOfDaysOfWork],
+              ["Date Received (Post)", post.documentTracking?.dateReceivedPost],
+              ["Submitted to RO", post.documentTracking?.dateSubmittedRO],
+            ]}
+          />
         </section>
+
       </div>
     </div>
   );

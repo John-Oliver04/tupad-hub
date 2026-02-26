@@ -7,6 +7,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { STORAGE_KEYS } from "../../utils/storage";
 import { Profile, Project } from "../../utils/types";
 import { UserIcon } from "../../components/Icons";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useLocalStorage<Profile>(STORAGE_KEYS.profile, {
@@ -57,16 +58,16 @@ export default function ProfilePage() {
     .slice(0, 2)
     .map((s) => s[0]?.toUpperCase())
     .join("");
-
+ 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-4 mb-10">
       <div className="relative overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
         <div
           className="h-40 w-full bg-zinc-200 md:h-56"
           style={{
-            backgroundImage: `url(${profile.coverUrl || "/bg-pattern.svg"})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundImage: profile.coverUrl
+              ? `url(${profile.coverUrl})`
+              : "url('/bg-pattern.svg')",
           }}
         />
         <div className="px-4 pb-4">
@@ -74,7 +75,14 @@ export default function ProfilePage() {
             <div className="h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-zinc-100 shadow">
               {profile.avatarUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={profile.avatarUrl} alt="Avatar" className="h-full w-full object-cover" />
+                <Image
+                  src={profile.avatarUrl}
+                  alt="Avatar"
+                  width={80}
+                  height={80}
+                  className="h-full w-full object-cover"
+                  unoptimized
+                />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-xl font-bold text-zinc-600">
                   {initials || <UserIcon />}

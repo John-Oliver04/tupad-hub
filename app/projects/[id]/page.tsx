@@ -85,7 +85,7 @@ export default function ProjectDetailsPage() {
   };
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-4 mb-10">
       <div className=" items-center justify-between">
         <h2 className="text-lg font-semibold text-zinc-800">Project ADL {project.adl}</h2><br/>
         <div className="flex items-center gap-2">
@@ -101,19 +101,6 @@ export default function ProjectDetailsPage() {
           </select>
         </div>
       </div>
-
-      {/* <Card title="Project Summary">
-        <div className="grid gap-3 sm:grid-cols-2 text-sm">
-          <div><span className="font-medium">ADL Number:</span> {pre.documentTracking?.adlNumber || project.adl || "—"}</div>
-          <div><span className="font-medium">Beneficiaries:</span> {post.verification?.totalBeneficiariesActual ?? pre.projectInformation?.totalBeneficiaries ?? project.beneficiaries ?? "—"}</div>
-          <div><span className="font-medium">Female:</span> {post.verification?.totalFemaleActual ?? pre.projectInformation?.totalFemale ?? "—"}</div>
-          <div><span className="font-medium">NTP Number:</span> {pre.documentTracking?.ntpNumber || "—"}</div>
-          <div><span className="font-medium">NTP Date:</span> {pre.documentTracking?.noticeToProceedDate || "—"}</div>
-          <div><span className="font-medium">Employment Period:</span> {(post.verification?.periodStart || "—") + (post.verification?.periodEnd ? ` - ${post.verification?.periodEnd}` : "")}</div>
-          <div><span className="font-medium">Date Sent to Region (PRE):</span> {pre.documentTracking?.dateSubmittedRO || "—"}</div>
-          <div><span className="font-medium">Date Sent to RO (POST):</span> {post.documentTracking?.dateSubmittedRO || "—"}</div>
-        </div>
-      </Card> */}
 
       <Card>
         <div className="mb-3 flex items-center gap-2">
@@ -323,32 +310,6 @@ export default function ProjectDetailsPage() {
           </FadeInUp>
         ) : (
           <FadeInUp className="space-y-4" key={`post-${postStep}`}>
-            {/* <Card title="Auto-filled from PRE DETAILS" className="border-amber-300">
-              <div className="grid gap-4 sm:grid-cols-2 text-sm">
-                <div>
-                  <div className="font-medium text-zinc-700">ADL Number</div>
-                  <div className="text-zinc-800">{pre.documentTracking?.adlNumber || project.adl || "—"}</div>
-                </div>
-                <label className="text-sm">
-                  <span className="mb-1 block font-medium text-zinc-700">Name & Nature of Project</span>
-                  <input
-                    className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-zinc-900 shadow-xs focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                    value={naturePost}
-                    onChange={(e) => setNaturePost(e.target.value)}
-                    placeholder="e.g., Clean-up Drive, Barangay XYZ"
-                  />
-                </label>
-                <div>
-                  <div className="font-medium text-zinc-700">Name of Proponent</div>
-                  <div className="text-zinc-800">{pre.projectInformation?.proponent || "—"}</div>
-                </div>
-                <div>
-                  <div className="font-medium text-zinc-700">Project Location</div>
-                  <div className="text-zinc-800">{pre.projectInformation?.location || "—"}</div>
-                </div>
-              </div>
-            </Card> */}
-
             <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 0 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">
                 Document Tracking

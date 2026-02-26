@@ -55,13 +55,15 @@ export default function ProjectsPage() {
     return { adl, beneficiaries, postBeneficiaries, female, ntpNumber, ntpDate, period, preSubmitted, postSubmitted };
   };
 
+  const [swipedId, setSwipedId] = useState<string | null>(null);
+
   return (
-    <div className="grid gap-4 relative">
+    <div className="grid gap-4 relative mb-28">
       <h2 className="text-lg font-semibold text-zinc-800">Projects</h2>
       <Link
         href="/projects/report"
         aria-label="Print all projects"
-        className="fixed right-1 top-15 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 bg-green-400 text-zinc-800 shadow hover:bg-green-600"
+        className="fixed right-2 top-15 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 bg-green-400 text-zinc-800 shadow hover:bg-green-600"
         title="Print All"
       >
         <PrintIcon />
@@ -75,50 +77,97 @@ export default function ProjectsPage() {
           const s = summarize(p);
           const headBg = p.status === "Completed" ? "bg-green-50 text-green-900" : "bg-blue-50 text-blue-900";
           return (
-            <FadeInUp key={p.id}>
-              <details className="mb-2" open={!!openMap[p.id]} onToggle={(e) => {
-                const el = e.currentTarget as HTMLDetailsElement;
-                setOpenMap({ ...(openMap || {}), [p.id]: el.open });
-              }}>
-                <summary className={`flex cursor-pointer list-none items-center justify-between rounded-md px-4 py-3 text-sm font-semibold ${headBg} border border-zinc-200`}>
-                  <span className="flex items-center gap-2">
-                    <FolderIcon /> 
-                    <span>ADL {s.adl} • {p.municipality} • {s.beneficiaries}/{s.postBeneficiaries} Ben.</span>
-                  </span>
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${p.status === "Completed" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}`}>
-                    {p.status || "Pending"}
-                  </span>
-                </summary>
-                <div className="accordion-content border border-t-0 border-zinc-200 p-4 bg-white">
-                  <div className="mb-3 flex items-center justify-end gap-2">
-                    <Link className="inline-flex items-center gap-1 rounded-md border border-zinc-300 bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-700" href={`/projects/${p.id}`}>
-                      Open <ArrowRightIcon />
-                    </Link>
+          <FadeInUp key={p.id}>
+            <div className="relative mb-3">
 
+              {/* DELETE BACKGROUND */}
+              <div className="absolute inset-0 flex justify-end items-center bg-red-600 rounded-xl px-6 overflow-hidden">
+                <button
+                  onClick={() => remove(p.id)}
+                  className="text-white font-semibold"
+                >
+                  Delete
+                </button>
+              </div>
+
+              {/* FOREGROUND CARD */}
+              <div
+                onTouchStart={(e) => {
+                  const startX = e.touches[0].clientX;
+                  e.currentTarget.dataset.startX = startX.toString();
+                }}
+                onTouchEnd={(e) => {
+                  const startX = Number(e.currentTarget.dataset.startX);
+                  const endX = e.changedTouches[0].clientX;
+
+                  if (startX - endX > 60) {
+                    setSwipedId(p.id); // swipe left
+                  }
+
+                  if (endX - startX > 60) {
+                    setSwipedId(null); // swipe right
+                  }
+                }}
+                className={`relative bg-white rounded-xl shadow-sm border border-zinc-200 transition-transform duration-300 overflow-hidden ${
+                  swipedId === p.id ? "-translate-x-28" : "translate-x-0"
+                }`}
+              >
+                {/* CARD HEADER */}
+                <div
+                  onClick={() =>
+                    setOpenMap({ ...openMap, [p.id]: !openMap[p.id] })
+                  }
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer active:bg-zinc-50"
+                >
+                  <div>
+                    <p className="text-sm font-semibold text-zinc-800">
+                      ADL {s.adl}
+                    </p>
+                    <p className="text-xs text-zinc-500">
+                      {p.municipality} • {s.beneficiaries}/{s.postBeneficiaries} Ben.
+                    </p>
                   </div>
-                  <div className="text-sm text-zinc-700">
-                    <p><span className="font-bold">Nature of Project:</span> {p.natureOfProject || p.preDetails?.projectInformation?.nameNature || "N/A"}</p>
-                    <p><span className="font-bold">Municipality:</span> {p.municipality}</p>
-                    <div className="mt-2 grid gap-1 sm:grid-cols-2">
-                      <p><span className="font-bold">ADL Number:</span> {s.adl}</p>
-                      <p><span className="font-bold">Beneficiaries:</span> {s.beneficiaries}</p>
-                      <p><span className="font-bold">Female:</span> {s.female}</p>
-                      <p><span className="font-bold">NTP Number:</span> {s.ntpNumber}</p>
-                      <p><span className="font-bold">NTP Date:</span> {s.ntpDate}</p>
-                      <p><span className="font-bold">Employment Period:</span> {s.period}</p>
-                      <p><span className="font-bold">Date Sent to Region (PRE):</span> {s.preSubmitted}</p>
-                      <p><span className="font-bold">Date Sent to RO (POST):</span> {s.postSubmitted}</p>
-                    </div>
-                  </div>
-                  <div className="flex justify-end">
-                    <p className="text-sm text-zinc-600"></p>
-                    <button onClick={() => remove(p.id)} className="rounded-md bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700">
-                      Delete
-                    </button>
+
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                        p.status === "Completed"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-yellow-100 text-yellow-800"
+                      }`}
+                    >
+                      {p.status || "Pending"}
+                    </span>
+
+                    <ArrowRightIcon
+                      className={`transition-transform ${
+                        openMap[p.id] ? "rotate-90" : ""
+                      }`}
+                    />
                   </div>
                 </div>
-              </details>
-            </FadeInUp>
+
+                {/* EXPAND CONTENT */}
+                {openMap[p.id] && (
+                  <div className="border-t bg-zinc-50 px-4 py-4 text-sm text-zinc-700 space-y-1 ">
+                    <p><strong>ADL:</strong><br /> {p.adl}</p>
+                    <p><strong>Municipality:</strong><br /> {p.municipality}</p>
+                    <p><strong>Beneficiary:</strong> <br />{p.beneficiaries}</p>
+                    <p><strong>Nature of Project:</strong><br /> {p.natureOfProject || "N/A"}</p>
+
+                    <div className="pt-3 flex justify-end">
+                      <Link
+                        href={`/projects/${p.id}`}
+                        className="rounded-lg bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800"
+                      >
+                        Open Project
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </FadeInUp>
           );
         })}
         {filtered.length === 0 && (
@@ -132,7 +181,7 @@ export default function ProjectsPage() {
         aria-label="Add Project"
         title="Add Project"
         onClick={openNew}
-        className="fixed bottom-6 right-6 z-30 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-700 text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-blue-800"
+        className="fixed bottom-20 right-6 z-30 inline-flex  rounded-full h-14 w-14 items-center justify-center bg-blue-700 text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-blue-800"
       >
         <PlusIcon />
       </button>
@@ -141,28 +190,80 @@ export default function ProjectsPage() {
         open={openCreate}
         onClose={() => setOpenCreate(false)}
         title="Create Project"
-        actions={
-          <button
-            onClick={() => {
-              if (!draft.adl || !draft.municipality) return;
-              const id = crypto.randomUUID();
-              setProjects([
-                ...projects,
-                { id, adl: draft.adl.trim(), beneficiaries: Number(draft.beneficiaries || 0), municipality: draft.municipality.trim(), status: "Pending", preDetails: {}, postDetails: {} } as Project,
-              ]);
-              setOpenCreate(false);
-              setDraft(newDraft());
-            }}
-            className="rounded-md bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800"
-          >
-            Add
-          </button>
-        }
       >
-        <div className="grid gap-4 sm:grid-cols-2">
-          <FormInput label="ADL Number" name="adl" required value={draft.adl} onChange={(e) => setDraft({ ...draft, adl: e.target.value })} />
-          <FormInput label="Municipality" name="municipality" required value={draft.municipality} onChange={(e) => setDraft({ ...draft, municipality: e.target.value })} />
-          <FormInput label="Number of Beneficiaries" name="beneficiaries" type="number" min={0} value={draft.beneficiaries} onChange={(e) => setDraft({ ...draft, beneficiaries: parseInt(e.target.value || "0", 10) })} />
+        <div className="flex flex-col h-full">
+
+          {/* Form Content */}
+          <div className="flex-1 overflow-y-auto px-1 py-2 space-y-4">
+
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 text-sm text-blue-900">
+              Enter project details to create a new TUPAD record.
+            </div>
+
+            <div className="space-y-4">
+
+              <FormInput
+                label="ADL Number"
+                name="adl"
+                required
+                value={draft.adl}
+                onChange={(e) => setDraft({ ...draft, adl: e.target.value })}
+              />
+
+              <FormInput
+                label="Municipality"
+                name="municipality"
+                required
+                value={draft.municipality}
+                onChange={(e) => setDraft({ ...draft, municipality: e.target.value })}
+              />
+
+              <FormInput
+                label="Number of Beneficiaries"
+                name="beneficiaries"
+                type="number"
+                min={0}
+                value={draft.beneficiaries}
+                onChange={(e) =>
+                  setDraft({
+                    ...draft,
+                    beneficiaries: parseInt(e.target.value || "0", 10),
+                  })
+                }
+              />
+
+            </div>
+          </div>
+
+          {/* Bottom Action */}
+          <div className="sticky bottom-0 bg-white  pt-3 pb-2">
+            <button
+              onClick={() => {
+                if (!draft.adl || !draft.municipality) return;
+
+                const id = crypto.randomUUID();
+
+                setProjects([
+                  ...projects,
+                  {
+                    id,
+                    adl: draft.adl.trim(),
+                    beneficiaries: Number(draft.beneficiaries || 0),
+                    municipality: draft.municipality.trim(),
+                    status: "Pending",
+                    preDetails: {},
+                    postDetails: {},
+                  } as Project,
+                ]);
+
+                setOpenCreate(false);
+                setDraft(newDraft());
+              }}
+              className="w-full rounded-xl bg-gradient-to-r from-green-800 to-green-600 py-3 text-sm font-semibold tracking-wide text-white shadow-md hover:shadow-lg active:scale-[0.96] transition-all duration-150" >
+                 Save
+            </button>
+          </div>
+
         </div>
       </Modal>
     </div>

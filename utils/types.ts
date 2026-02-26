@@ -5,7 +5,14 @@ export type Profile = {
   contactNumber: string;
   avatarUrl?: string;
   coverUrl?: string;
+  
 };
+
+export interface CallLog {
+  id: string;
+  projectId?: string;
+  timestamp: string;
+}
 
 export type ProjectStatus = "Pending" | "Completed";
 

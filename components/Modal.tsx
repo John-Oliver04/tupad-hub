@@ -33,7 +33,7 @@ export default function Modal({ open, title, onClose, actions, children }: Modal
                 {actions}
                 <button
                   onClick={onClose}
-                  className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  className="rounded-md border border-zinc-300 bg-red-600 text-white px-3 py-1.5 text-sm hover:bg-zinc-50"
                 >
                   x
                 </button>

@@ -81,7 +81,15 @@ select {
   border: 1px solid #ccc;
 }
 
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
 
+  .no-print {
+    display: none !important;
+  }
+}
 
 input:focus,
 textarea:focus,
@@ -96,8 +104,7 @@ button:focus {
 @media (max-width: 600px) {
   input,
   textarea,
-  select,
-  button {
+  select {
     font-size: 1rem;
     background: var(--color-background);
     color: var(--color-foreground);

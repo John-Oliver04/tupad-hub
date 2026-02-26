@@ -1,6 +1,7 @@
 export const STORAGE_KEYS = {
   profile: "profile",
   projects: "projects",
+  callLogs: "tupad_call_logs",
 } as const;
 
 export function readLocal<T>(key: string, fallback: T): T {
