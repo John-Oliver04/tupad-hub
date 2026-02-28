@@ -106,13 +106,13 @@ export default function ProjectDetailsPage() {
         <div className="mb-3 flex items-center gap-2">
           <button
             onClick={() => setActiveTab("pre")}
-            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "pre" ? "bg-green-700 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "pre" ? "bg-emerald-700/60 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
           >
             PRE DETAILS
           </button>
           <button
             onClick={() => setActiveTab("post")}
-            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "post" ? "bg-green-700 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "post" ? "bg-emerald-700/60 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
           >
             POST DETAILS
           </button>
@@ -135,7 +135,7 @@ export default function ProjectDetailsPage() {
 
         {activeTab === "pre" ? (
           <FadeInUp className="space-y-4" key={`pre-${preStep}`}>
-            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 0 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 0 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Project Information
               </summary>
@@ -191,7 +191,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
             
-            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 1 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 1 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Document Tracking
               </summary>
@@ -226,7 +226,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 2 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 2 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Project Cost Computation
               </summary>
@@ -261,7 +261,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className={`rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 3 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-blue-300 border-l-4 border-l-blue-500 shadow-xs ${preStep !== 3 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-900">
                 Implementation Details
               </summary>
@@ -292,7 +292,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPreStep((s) => Math.max(0, s - 1))}
                 disabled={preStep === 0}
-                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-emerald-700/60 text-white hover:bg-green-800"}`}
               >
                 Previous
               </button>
@@ -300,7 +300,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPreStep((s) => Math.min(3, s + 1))}
                 disabled={preStep === 3}
-                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-emerald-700/60 text-white hover:bg-green-800"}`}
               >
                 Next
               </button>
@@ -310,7 +310,7 @@ export default function ProjectDetailsPage() {
           </FadeInUp>
         ) : (
           <FadeInUp className="space-y-4" key={`post-${postStep}`}>
-            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 0 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-green-300 border-l-4 border-l-green-700 shadow-xs ${postStep !== 0 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">
                 Document Tracking
               </summary>    
@@ -338,7 +338,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 1 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-green-300 border-l-4 border-l-green-700 shadow-xs ${postStep !== 1 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">
                 Project Verification
               </summary>  
@@ -390,7 +390,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 2 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-green-300 border-l-4 border-l-green-700 shadow-xs ${postStep !== 2 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">Project Cost Computation</summary>
               <div className="p-4">
                 <CostComputation
@@ -428,7 +428,7 @@ export default function ProjectDetailsPage() {
               </div>
             </details>
 
-            <details className={`rounded-lg border border-green-300 border-l-4 border-l-green-600 shadow-xs ${postStep !== 3 ? "hidden" : ""}`} open>
+            <details className={`bg-white rounded-lg border border-green-300 border-l-4 border-l-green-700 shadow-xs ${postStep !== 3 ? "hidden" : ""}`} open>
               <summary className="cursor-pointer select-none list-none bg-green-50 px-4 py-2 text-sm font-semibold text-green-900">Implementation Summary</summary>
               <div className="grid gap-4 p-4 sm:grid-cols-2">
                 <FormInput
@@ -450,7 +450,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPostStep((s) => Math.max(0, s - 1))}
                 disabled={postStep === 0}
-                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-emerald-700/60 text-white hover:bg-green-800"}`}
               >
                 Previous
               </button>
@@ -458,7 +458,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPostStep((s) => Math.min(3, s + 1))}
                 disabled={postStep === 3}
-                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-emerald-700/60 text-white hover:bg-green-800"}`}
               >
                 Next
               </button>
