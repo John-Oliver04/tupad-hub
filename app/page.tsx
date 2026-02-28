@@ -28,7 +28,7 @@ return (
   <div className="min-h-screen bg-zinc-100 pb-6">
 
     {/* Top App Header */}
-    <div className="bg-white shadow-sm px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+    <div className="bg-white shadow-sm px-4 py-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 overflow-hidden rounded-full border bg-zinc-200">
           {profile.avatarUrl ? (
@@ -67,7 +67,9 @@ return (
       <div className="bg-white rounded-xl shadow-sm p-4">
         <h2 className="flex items-center gap-2 font-semibold text-zinc-800 mb-2">
           <HomeIcon />
-          Welcome
+          <span >
+            Welcome
+          </span>
         </h2>
         <p className="text-sm text-zinc-600 leading-relaxed">
           Manage your profile, create TUPAD projects, and record implementation details.
