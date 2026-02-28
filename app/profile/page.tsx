@@ -83,7 +83,7 @@ export default function ProfilePage() {
             backgroundImage: profile.coverUrl
               ? `url(${profile.coverUrl})`
               : "url('/bg-pattern.svg')",
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
           }}
