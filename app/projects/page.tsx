@@ -81,12 +81,12 @@ export default function ProjectsPage() {
             <div className="relative mb-3 ">
 
               {/* DELETE BACKGROUND */}
-              <div className="absolute inset-0 flex justify-end items-center bg-red-500/90 rounded-xl px-6 overflow-hidden">
+              <div className="absolute inset-0 flex justify-end items-center bg-red-300/40 rounded-xl px-6 overflow-hidden">
                 <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-slate-400/30 blur-2xl" ></div>
     
                 <button
                   onClick={() => remove(p.id)}
-                  className="text-white font-semibold"
+                  className="text-red-400 font-semibold"
                 >
                   Delete
                 </button>

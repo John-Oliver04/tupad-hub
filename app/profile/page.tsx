@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, ChangeEvent } from "react";
 import Card from "../../components/Card";
 import { FormInput } from "../../components/FormInput";
 import Modal from "../../components/Modal";
@@ -33,6 +33,21 @@ export default function ProfilePage() {
     setDraft(profile);
     setOpen(true);
   };
+
+  const handleImageFile =
+    (field: "avatarUrl" | "coverUrl") =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = typeof reader.result === "string" ? reader.result : "";
+        if (!dataUrl) return;
+        setDraft((prev) => ({ ...prev, [field]: dataUrl }));
+      };
+      reader.readAsDataURL(file);
+    };
 
   const stats = useMemo(() => {
     const total = projects.length;
@@ -95,7 +110,7 @@ export default function ProfilePage() {
               <div className="mt-2 flex justify-end">
                 <button
                   onClick={openEdit}
-                  className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+                  className="rounded-md bg-emerald-700/50 px-3 py-1.5 text-sm text-white hover:bg-emerald-800"
                 >
                   Edit Profile
                 </button>
@@ -171,12 +186,64 @@ export default function ProfilePage() {
         }
       >
         <div className="grid gap-4 sm:grid-cols-2">
-          <FormInput label="Full Name" name="fullName" required value={draft.fullName} onChange={(e) => setDraft({ ...draft, fullName: e.target.value })} />
-          <FormInput label="Position" name="position" required value={draft.position} onChange={(e) => setDraft({ ...draft, position: e.target.value })} />
-          <FormInput label="Municipality" name="municipality" required value={draft.municipality} onChange={(e) => setDraft({ ...draft, municipality: e.target.value })} />
-          <FormInput label="Contact Number" name="contactNumber" required value={draft.contactNumber} onChange={(e) => setDraft({ ...draft, contactNumber: e.target.value })} />
-          <FormInput label="Profile Picture URL" name="avatarUrl" value={draft.avatarUrl || ""} onChange={(e) => setDraft({ ...draft, avatarUrl: e.target.value })} />
-          <FormInput label="Cover Photo URL" name="coverUrl" value={draft.coverUrl || ""} onChange={(e) => setDraft({ ...draft, coverUrl: e.target.value })} />
+          <FormInput
+            label="Full Name"
+            name="fullName"
+            required
+            value={draft.fullName}
+            onChange={(e) => setDraft({ ...draft, fullName: e.target.value })}
+          />
+          <FormInput
+            label="Position"
+            name="position"
+            required
+            value={draft.position}
+            onChange={(e) => setDraft({ ...draft, position: e.target.value })}
+          />
+          <FormInput
+            label="Municipality"
+            name="municipality"
+            required
+            value={draft.municipality}
+            onChange={(e) => setDraft({ ...draft, municipality: e.target.value })}
+          />
+          <FormInput
+            label="Contact Number"
+            name="contactNumber"
+            required
+            value={draft.contactNumber}
+            onChange={(e) => setDraft({ ...draft, contactNumber: e.target.value })}
+          />
+
+          <label className="block text-sm">
+            <span className="mb-1 block font-medium text-zinc-700">
+              Profile Picture
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageFile("avatarUrl")}
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 shadow-xs file:mr-3 file:rounded-md file:border-0 file:bg-emerald-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white file:hover:bg-emerald-700"
+            />
+            <span className="mt-1 block text-xs text-zinc-500">
+              This image is stored only on your device.
+            </span>
+          </label>
+
+          <label className="block text-sm">
+            <span className="mb-1 block font-medium text-zinc-700">
+              Cover Photo
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageFile("coverUrl")}
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 shadow-xs file:mr-3 file:rounded-md file:border-0 file:bg-emerald-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white file:hover:bg-emerald-700"
+            />
+            <span className="mt-1 block text-xs text-zinc-500">
+              Pick a photo from your phone gallery.
+            </span>
+          </label>
         </div>
       </Modal>
     </div>
