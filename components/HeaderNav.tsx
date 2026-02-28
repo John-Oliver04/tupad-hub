@@ -7,7 +7,7 @@ import FavIcon from "../app/favicon.png";
 
 export default function HeaderNav() {
   return (
-<header className="sticky top-0 z-20 bg-green-600/95  text-white shadow">
+<header className="sticky top-0 z-20 bg-emerald-700/40 backdrop-blur  text-emerald-700 shadow">
   <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
     <Link href="/" className="flex items-center gap-2 text-base font-bold tracking-wide">
       T U P A D H U B

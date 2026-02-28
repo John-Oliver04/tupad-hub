@@ -57,8 +57,18 @@ export default function ProjectReportPage() {
   return (
     <div className="mx-auto max-w-3xl p-4 mb-5">
       <div className="mb-4 flex items-center justify-between no-print">
-        <button onClick={() => router.push(`/projects/${project.id}`)} className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50">Back</button>
-        <button onClick={() => window.print()} className="rounded-md bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800">Print PDF</button>
+        <button
+          onClick={() => router.push(`/projects/${project.id}`)}
+          className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+        >
+          Back
+        </button>
+        <button
+          onClick={() => window.print()}
+          className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+        >
+          Print PDF
+        </button>
       </div>
 
       <div className="bg-white p-8 print:p-6">

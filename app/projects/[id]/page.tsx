@@ -106,13 +106,13 @@ export default function ProjectDetailsPage() {
         <div className="mb-3 flex items-center gap-2">
           <button
             onClick={() => setActiveTab("pre")}
-            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "pre" ? "bg-blue-700 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "pre" ? "bg-green-700 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
           >
             PRE DETAILS
           </button>
           <button
             onClick={() => setActiveTab("post")}
-            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "post" ? "bg-blue-700 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
+            className={`rounded-md px-3 py-1.5 text-sm ${activeTab === "post" ? "bg-green-700 text-white" : "border border-zinc-300 bg-white hover:bg-zinc-50"}`}
           >
             POST DETAILS
           </button>
@@ -292,7 +292,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPreStep((s) => Math.max(0, s - 1))}
                 disabled={preStep === 0}
-                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
               >
                 Previous
               </button>
@@ -300,7 +300,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPreStep((s) => Math.min(3, s + 1))}
                 disabled={preStep === 3}
-                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${preStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
               >
                 Next
               </button>
@@ -450,7 +450,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPostStep((s) => Math.max(0, s - 1))}
                 disabled={postStep === 0}
-                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 0 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
               >
                 Previous
               </button>
@@ -458,7 +458,7 @@ export default function ProjectDetailsPage() {
               <button
                 onClick={() => setPostStep((s) => Math.min(3, s + 1))}
                 disabled={postStep === 3}
-                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-blue-700 text-white hover:bg-blue-800"}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${postStep === 3 ? "cursor-not-allowed border border-zinc-200 bg-zinc-100 text-zinc-400" : "bg-green-700 text-white hover:bg-green-800"}`}
               >
                 Next
               </button>

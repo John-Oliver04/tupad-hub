@@ -24,8 +24,8 @@ function BottomNav() {
         <div
           className={`grid place-items-center rounded-2xl px-5 py-2 transition ${
             active
-              ? "bg-white text-green-700 shadow-md"
-              : "text-white/90 hover:text-white"
+              ? "bg-emerald-800/40 text-white shadow-md"
+              : "text-emerald-600 hover:text-white"
           }`}
         >
           <Icon width={26} height={26} />
@@ -42,7 +42,7 @@ function BottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-white/20 bg-green-600/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-green-600/80 print:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-emerald-200/70 bg-emerald-700/40 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-emerald-700/40 print:hidden">
       <div className="mx-auto flex max-w-5xl items-stretch justify-around px-2 pb-[env(safe-area-inset-bottom)] pt-1">
         {navItem("/", "", HomeIcon)}
         {navItem("/projects", "", FolderIcon)}

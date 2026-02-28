@@ -1,12 +1,9 @@
 "use client";
 import Link from "next/link";
-import Card from "../components/Card";
-import Image from "next/image";
 import { ArrowRightIcon, FolderIcon, HomeIcon, UserIcon } from "../components/Icons";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { STORAGE_KEYS } from "../utils/storage";
 import type { Profile } from "../utils/types";
-import MyLogo from '../app/favicon.png';
 
 export default function Home() {
   const [profile] = useLocalStorage<Profile>(STORAGE_KEYS.profile, {
@@ -24,104 +21,64 @@ export default function Home() {
     .map((s) => s[0]?.toUpperCase())
     .join("");
 
+  const firstName =
+    profile.fullName
+      ?.split(" ")
+      .filter(Boolean)[0] || "Coordinator";
+
 return (
-  <div className="min-h-screen bg-zinc-100 pb-6">
+  <div className="min-h-screen pb-6">
 
-    {/* Top App Header */}
-    <div className="bg-white shadow-sm px-4 py-3 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <div className="h-10 w-10 overflow-hidden rounded-full border bg-zinc-200">
-          {profile.avatarUrl ? (
-            <img
-              src={profile.avatarUrl}
-              alt="Coordinator avatar"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-sm font-bold text-zinc-700">
-              {initials}
-            </div>
-          )}
-        </div>
-
-        <div className="leading-tight">
-          <p className="text-sm font-semibold text-zinc-900">
-            {profile.fullName || "Coordinator"}
-          </p>
-          <p className="text-xs text-zinc-500">
-            {profile.position || "TUPAD Coordinator"}
-          </p>
-        </div>
-      </div>
-
-      <Image
-        src={MyLogo}
-        alt="TUPAD Hub logo"
-        className="h-8 w-auto"
-        priority
-      />
-    </div>
-
-    {/* Welcome Card */}
+    {/* Welcome Hero */}
     <div className="px-4 mt-4">
-      <div className="bg-white rounded-xl shadow-sm p-4">
-        <h2 className="flex items-center gap-2 font-semibold text-zinc-800 mb-2">
-          <HomeIcon />
-          <span >
-            Welcome
-          </span>
-        </h2>
-        <p className="text-sm text-zinc-600 leading-relaxed">
-          Manage your profile, create TUPAD projects, and record implementation details.
-          <br /><br />
-          <span className="text-xs text-red-500">
-            Note: This is not an official DOLE application. For personal use only.
-          </span>
-        </p>
-      </div>
-    </div>
+      <section className="relative overflow-hidden rounded-2xl bg-green-50 text-slate-900 shadow-md">
+        <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-400/30 blur-2xl" ></div>
+        <div className="pointer-events-none absolute -bottom-16 -left-8 h-40 w-40 rounded-full bg-sky-400/20 blur-2xl" ></div>
 
-    {/* Main Action Buttons */}
-    <div className="px-4 mt-4 space-y-3">
-
-      <Link href="/profile" className="block">
-        <div className="bg-white rounded-xl shadow-sm p-4 active:scale-[0.98] transition">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <UserIcon />
-              </div>
-              <div>
-                <p className="font-medium text-zinc-800">Profile</p>
-                <p className="text-xs text-zinc-500">
-                  Manage coordinator information
-                </p>
-              </div>
-            </div>
-            <ArrowRightIcon />
+        <div className="relative p-5 space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+            <span className="text-emerald-700">TUPAD Coordinator workspace</span>
           </div>
-        </div>
-      </Link>
 
-      <Link href="/projects" className="block">
-        <div className="bg-white rounded-xl shadow-sm p-4 active:scale-[0.98] transition">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-green-100 p-2 rounded-lg">
-                <FolderIcon />
-              </div>
-              <div>
-                <p className="font-medium text-zinc-800">Projects</p>
-                <p className="text-xs text-zinc-500">
-                  Create and track TUPAD projects
-                </p>
-              </div>
-            </div>
-            <ArrowRightIcon />
+          <h1
+            className="text-2xl font-extrabold text-emerald-700 tracking-tight sm:text-3xl"
+            style={{
+              fontFamily:
+                "Impact, Haettenschweiler, 'Arial Narrow Bold', system-ui, sans-serif",
+            }}
+          >
+            Welcome, {firstName}
+          </h1>
+
+          <p className="text-sm text-emerald-700 leading-relaxed">
+            Manage your profile, create TUPAD projects, and record implementation
+            details in one focused, mobile-first hub.
+          </p>
+
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <Link
+              href="/projects"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-emerald-700 shadow-sm active:scale-[0.98]"
+            >
+              <FolderIcon width={18} height={18} />
+              <span>Open projects</span>
+            </Link>
+            <Link
+              href="/profile"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-emerald-200/70 bg-emerald-700/40 px-3 py-2 text-sm font-semibold text-white shadow-sm active:scale-[0.98]"
+            >
+              <UserIcon width={18} height={18} />
+              <span>Update profile</span>
+            </Link>
           </div>
-        </div>
-      </Link>
 
+          <p className="mt-2 text-[11px] text-red-700/50">
+            Note: This is not an official DOLE application. For personal use
+            only.
+          </p>
+        </div>
+      </section>
     </div>
 
   </div>

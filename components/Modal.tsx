@@ -27,13 +27,13 @@ export default function Modal({ open, title, onClose, actions, children }: Modal
       <div className="absolute inset-0 flex items-center justify-center p-4">
         <ScaleIn className="w-full max-w-lg rounded-xl bg-white shadow-xl">
           {(title || actions) && (
-            <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-3">
+            <div className="flex items-center justify-between border-b bg-emerald-700/40 border-zinc-200 px-5 py-3">
               <h3 className="text-base font-semibold text-zinc-800">{title}</h3>
               <div className="flex items-center gap-2">
                 {actions}
                 <button
                   onClick={onClose}
-                  className="rounded-md border border-zinc-300 bg-red-600 text-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+                  className="rounded-md border border-zinc-300 bg-white text-red-600 px-3 py-1.5 text-sm hover:text-red-700 hover:bg-emerald-700/40"
                 >
                   x
                 </button>

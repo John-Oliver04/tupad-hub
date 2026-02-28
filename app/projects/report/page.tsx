@@ -59,7 +59,12 @@ export default function AllProjectsReportPage() {
     <div className="mx-auto max-w-5xl p-4">
       <div className="mb-4 flex items-center justify-between gap-2 no-print">
         <div className="flex items-center gap-2">
-          <button onClick={() => router.push("/projects")} className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50">Back</button>
+          <button
+            onClick={() => router.push("/projects")}
+            className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+          >
+            Back
+          </button>
           {/* <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -67,7 +72,12 @@ export default function AllProjectsReportPage() {
             className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm"
           /> */}
         </div>
-        <button onClick={() => window.print()} className="rounded-md bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800">Print</button>
+        <button
+          onClick={() => window.print()}
+          className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+        >
+          Print
+        </button>
       </div>
 
       {/* <h1 className="mb-4 text-xl font-semibold text-zinc-900">TUPAD Projects Report</h1> */}

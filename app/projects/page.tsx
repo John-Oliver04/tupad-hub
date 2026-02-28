@@ -59,11 +59,11 @@ export default function ProjectsPage() {
 
   return (
     <div className="grid gap-4 relative mb-28">
-      <h2 className="text-lg font-semibold text-zinc-800">Projects</h2>
+      <h2 className="text-lg font-semibold text-emerald-800">Projects</h2>
       <Link
         href="/projects/report"
         aria-label="Print all projects"
-        className="fixed right-2 top-15 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 bg-green-400 text-zinc-800 shadow hover:bg-green-600"
+        className="fixed right-2 top-15 z-30 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 bg-emerald-700/40 text-zinc-800 shadow hover:bg-emerald-600/40"
         title="Print All"
       >
         <PrintIcon />
@@ -72,16 +72,18 @@ export default function ProjectsPage() {
       {/* Filters hidden as requested */}
       <div className="hidden" />
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2 ">
         {filtered.map((p) => {
           const s = summarize(p);
           const headBg = p.status === "Completed" ? "bg-green-50 text-green-900" : "bg-blue-50 text-blue-900";
           return (
           <FadeInUp key={p.id}>
-            <div className="relative mb-3">
+            <div className="relative mb-3 ">
 
               {/* DELETE BACKGROUND */}
-              <div className="absolute inset-0 flex justify-end items-center bg-red-600 rounded-xl px-6 overflow-hidden">
+              <div className="absolute inset-0 flex justify-end items-center bg-red-500/90 rounded-xl px-6 overflow-hidden">
+                <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-slate-400/30 blur-2xl" ></div>
+    
                 <button
                   onClick={() => remove(p.id)}
                   className="text-white font-semibold"
@@ -108,16 +110,19 @@ export default function ProjectsPage() {
                     setSwipedId(null); // swipe right
                   }
                 }}
-                className={`relative bg-white rounded-xl shadow-sm border border-zinc-200 transition-transform duration-300 overflow-hidden ${
+                className={`relative bg-green-50 rounded-xl shadow-sm border border-emerald-200 transition-transform duration-300 overflow-hidden ${
                   swipedId === p.id ? "-translate-x-28" : "translate-x-0"
                 }`}
               >
+                <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-400/30 blur-2xl" ></div>
+                <div className="pointer-events-none absolute -bottom-16 -left-8 h-40 w-40 rounded-full bg-sky-400/20 blur-2xl" ></div>
+        
                 {/* CARD HEADER */}
                 <div
                   onClick={() =>
                     setOpenMap({ ...openMap, [p.id]: !openMap[p.id] })
                   }
-                  className="flex items-center justify-between px-4 py-3 cursor-pointer active:bg-zinc-50"
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer active:bg-emerald-700/50"
                 >
                   <div>
                     <p className="text-sm font-semibold text-zinc-800">
@@ -158,7 +163,7 @@ export default function ProjectsPage() {
                     <div className="pt-3 flex justify-end">
                       <Link
                         href={`/projects/${p.id}`}
-                        className="rounded-lg bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800"
+                        className="rounded-lg bg-emerald-700/60 px-3 py-1.5 text-sm text-white hover:bg-emerald-800/90"
                       >
                         Open Project
                       </Link>
@@ -181,7 +186,7 @@ export default function ProjectsPage() {
         aria-label="Add Project"
         title="Add Project"
         onClick={openNew}
-        className="fixed bottom-20 right-6 z-30 inline-flex  rounded-full h-14 w-14 items-center justify-center bg-blue-700 text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-blue-800"
+        className="fixed bottom-20 right-6 z-30 inline-flex rounded-full h-14 w-14 items-center justify-center bg-emerald-700/40 text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-emerald-700/50"
       >
         <PlusIcon />
       </button>
@@ -259,7 +264,7 @@ export default function ProjectsPage() {
                 setOpenCreate(false);
                 setDraft(newDraft());
               }}
-              className="w-full rounded-xl bg-gradient-to-r from-green-800 to-green-600 py-3 text-sm font-semibold tracking-wide text-white shadow-md hover:shadow-lg active:scale-[0.96] transition-all duration-150" >
+              className="w-full rounded-xl bg-gradient-to-r from-emerald-800/40 to-emerald-600/40 py-3 text-sm font-semibold tracking-wide text-white shadow-md hover:shadow-lg active:scale-[0.96] transition-all duration-150" >
                  Save
             </button>
           </div>

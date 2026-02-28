@@ -93,7 +93,12 @@ export default function ProfilePage() {
               <div className="text-lg font-semibold text-white text-shadow ">{profile.fullName || "—"}</div>
               <div className="text-sm text-zinc-600 text-shadow mt-2">{profile.position || "—"} • {profile.municipality || "—"}</div>
               <div className="mt-2 flex justify-end">
-                <button onClick={openEdit} className="rounded-md bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800">Edit Profile</button>
+                <button
+                  onClick={openEdit}
+                  className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+                >
+                  Edit Profile
+                </button>
               </div>
             </div>
           </div>
@@ -150,8 +155,18 @@ export default function ProfilePage() {
         title="Update Profile"
         actions={
           <>
-            <button onClick={clear} className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50">Clear</button>
-            <button onClick={save} className="rounded-md bg-blue-700 px-3 py-1.5 text-sm text-white hover:bg-blue-800">Save</button>
+            <button
+              onClick={clear}
+              className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+            >
+              Clear
+            </button>
+            <button
+              onClick={save}
+              className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+            >
+              Save
+            </button>
           </>
         }
       >
