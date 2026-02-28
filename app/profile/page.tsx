@@ -83,6 +83,9 @@ export default function ProfilePage() {
             backgroundImage: profile.coverUrl
               ? `url(${profile.coverUrl})`
               : "url('/bg-pattern.svg')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
           }}
         />
         <div className="px-4 pb-4">
@@ -243,7 +246,7 @@ export default function ProfilePage() {
               </button>
               <button
                 onClick={save}
-                className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+                className="rounded-md bg-emerald-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
               >
                 Save
           </button>

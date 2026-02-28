@@ -28,7 +28,7 @@ export default function Modal({ open, title, onClose, actions, children }: Modal
         <ScaleIn className="w-full max-w-lg rounded-xl bg-white shadow-xl">
           {(title || actions) && (
             <div className="flex items-center justify-between border-b bg-emerald-700/40 border-zinc-200 px-5 py-3">
-              <h3 className="text-base font-semibold text-zinc-800">{title}</h3>
+              <h3 className="text-base font-semibold text-emerald-800">{title}</h3>
               <div className="flex items-center gap-2">
                 {actions}
                 <button

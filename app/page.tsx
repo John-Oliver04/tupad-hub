@@ -1,9 +1,11 @@
-"use client";
+ "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRightIcon, FolderIcon, HomeIcon, UserIcon } from "../components/Icons";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { STORAGE_KEYS } from "../utils/storage";
 import type { Profile } from "../utils/types";
+import MyLogo from "./favicon.png";
 
 export default function Home() {
   const [profile] = useLocalStorage<Profile>(STORAGE_KEYS.profile, {
@@ -36,9 +38,19 @@ return (
         <div className="pointer-events-none absolute -bottom-16 -left-8 h-40 w-40 rounded-full bg-sky-400/20 blur-2xl" ></div>
 
         <div className="relative p-5 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-            <span className="text-emerald-700">TUPAD Coordinator workspace</span>
+
+
+          {/* App Logo */}
+          <div className=" flex justify-center">
+            <div className="flex items-center gap-2 rounded-full px-4 ">
+              <Image
+                src={MyLogo}
+                alt="TUPAD Hub logo"
+                width={200}
+                height={150}
+                className="rounded-md"
+              />
+            </div>
           </div>
 
           <h1
