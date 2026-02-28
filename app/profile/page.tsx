@@ -170,18 +170,7 @@ export default function ProfilePage() {
         title="Update Profile"
         actions={
           <>
-            <button
-              onClick={clear}
-              className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
-            >
-              Clear
-            </button>
-            <button
-              onClick={save}
-              className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
-            >
-              Save
-            </button>
+
           </>
         }
       >
@@ -244,6 +233,20 @@ export default function ProfilePage() {
               Pick a photo from your phone gallery.
             </span>
           </label>
+        </div>
+        <div className="flex justify-between mt-4 ">
+          <button
+                onClick={clear}
+                className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50"
+              >
+                Clear
+              </button>
+              <button
+                onClick={save}
+                className="rounded-md bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
+              >
+                Save
+          </button>
         </div>
       </Modal>
     </div>
