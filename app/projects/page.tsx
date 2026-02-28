@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Modal from "../../components/Modal";
 import { FadeInUp } from "../../components/Motion";
-import { FolderIcon, ArrowRightIcon, PlusIcon, PrintIcon } from "../../components/Icons";
+import { ArrowRightIcon, PlusIcon, PrintIcon } from "../../components/Icons";
 import { FormInput } from "../../components/FormInput";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { STORAGE_KEYS } from "../../utils/storage";

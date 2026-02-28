@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -19,11 +20,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TUPAD Hub",
   description: "Local, mobile-first management for TUPAD Coordinators",
-  icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
-    shortcut: "/favicon.png",
-  },
   manifest: "/manifest.json",
 };
 

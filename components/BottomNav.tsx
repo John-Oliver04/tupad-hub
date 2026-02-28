@@ -13,7 +13,12 @@ function BottomNav() {
     label: string,
     Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
   ) => {
-    const active = pathname === href;
+    const active =
+      href === "/projects"
+        ? pathname.startsWith("/projects")
+        : href === "/profile"
+        ? pathname.startsWith("/profile")
+        : pathname === href;
 
     return (
       <Link
