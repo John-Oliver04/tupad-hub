@@ -55,6 +55,118 @@ export default function ProjectsPage() {
     return { adl, beneficiaries, postBeneficiaries, female, ntpNumber, ntpDate, period, preSubmitted, postSubmitted };
   };
 
+  const exportProjectToCsv = (p: Project) => {
+    const pre = p.preDetails || {};
+    const post = p.postDetails || {};
+    const preDoc = pre.documentTracking || {};
+    const preInfo = pre.projectInformation || {};
+    const preCost = pre.projectCost || {};
+    const preImpl = pre.implementation || {};
+    const postDoc = post.documentTracking || {};
+    const postInfo = preInfo;
+    const postVer = post.verification || {};
+    const postCost = post.cost || {};
+    const postImpl = post.implementation || {};
+
+    const escape = (v: string | number) => {
+      const str = String(v ?? "").replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const header = [
+      "DATE RECEIVED FROM RO",
+      "ADL",
+      "DATE SUBMITTED FROM RO",
+      "NAME AND NATURE OF PROJECT",
+      "NAME OF PROPONENT",
+      "PROJECT LOCATION",
+      "TOTAL BENEFICIARIES",
+      "TOTAL FEMALE",
+      "NO. OF DAYS",
+      "LABOR COST",
+      "PPE",
+      "INSURANCE",
+      "TOTAL",
+      "RECEIVED NOTICE TO PROCEED (NTP DATE)",
+      "ORIENTATION DATE",
+      "REMARKS",
+      " ",
+      "ADL NO.",
+      "DATE RECEIVED (POST)",
+      "NAME AND NATURE OF PROJECT",
+      "NAME OF PROPONENT",
+      "PROJECT LOCATION",
+      "TOTAL BENEFICIARIES",
+      "TOTAL FEMALE",
+      "NO. OF DAYS OF WORK",
+      "IMPLEMENTATION PERIOD",
+      "LABOR COST",
+      "PPE",
+      "INSURANCE",
+      "TOTAL",
+      "SUBMITTED TO RO",
+      "PAYMENT OF WAGES",
+      "REMARKS",
+    ]
+      .map(escape)
+      .join(";");
+
+    const implementationPeriod =
+      (postVer.periodStart || "") +
+      (postVer.periodEnd ? ` - ${postVer.periodEnd}` : "");
+
+    const row = [
+      preDoc.dateReceivedRO || "",
+      preDoc.adlNumber || p.adl || "",
+      preDoc.dateSubmittedRO || "",
+      preInfo.nameNature || "",
+      preInfo.proponent || "",
+      preInfo.location || "",
+      preInfo.totalBeneficiaries ?? p.beneficiaries ?? "",
+      preInfo.totalFemale ?? "",
+      preInfo.noOfDays ?? "",
+      preCost.laborCost ?? "",
+      preCost.ppe ?? "",
+      preCost.insurance ?? "",
+      preCost.total ?? "",
+      preDoc.noticeToProceedDate || "",
+      preImpl.orientationDate || "",
+      preImpl.remarks || "",
+      "",
+      postDoc.adlNumber || preDoc.adlNumber || p.adl || "",
+      postDoc.dateReceivedPost || "",
+      postInfo.nameNature || "",
+      postInfo.proponent || "",
+      postInfo.location || "",
+      postVer.totalBeneficiariesActual ??
+        preInfo.totalBeneficiaries ??
+        p.beneficiaries ??
+        "",
+      postVer.totalFemaleActual ?? preInfo.totalFemale ?? "",
+      postVer.noOfDaysOfWork ?? preInfo.noOfDays ?? "",
+      implementationPeriod,
+      postCost.laborCost ?? "",
+      postCost.ppe ?? "",
+      postCost.insurance ?? "",
+      postCost.total ?? "",
+      postDoc.dateSubmittedRO || "",
+      postImpl.paymentReleasedDate || "",
+      postImpl.remarks || "",
+    ]
+      .map(escape)
+      .join(";");
+
+    const crlf = "\r\n";
+    const csv = "\uFEFF" + header + crlf + row + crlf;
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tupad-project-ADL-${(p.adl || "export").replace(/\s/g, "-")}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const [swipedId, setSwipedId] = useState<string | null>(null);
 
   return (
@@ -160,7 +272,22 @@ export default function ProjectsPage() {
                     <p><strong>Beneficiary:</strong> <br />{p.beneficiaries}</p>
                     <p><strong>Nature of Project:</strong><br /> {p.natureOfProject || "N/A"}</p>
 
-                    <div className="pt-3 flex justify-end">
+                    <div className="pt-3 flex flex-wrap gap-2 justify-end">
+                      <Link
+                        href={`/projects/${p.id}/report`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg border border-emerald-600 px-3 py-1.5 text-sm font-medium text-emerald-700 hover:bg-emerald-50"
+                      >
+                        Print
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => exportProjectToCsv(p)}
+                        className="rounded-lg border border-emerald-600 px-3 py-1.5 text-sm font-medium text-emerald-700 hover:bg-emerald-50"
+                      >
+                        Excel
+                      </button>
                       <Link
                         href={`/projects/${p.id}`}
                         className="rounded-lg bg-emerald-700/60 px-3 py-1.5 text-sm text-white hover:bg-emerald-800/90"

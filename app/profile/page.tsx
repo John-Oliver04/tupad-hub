@@ -171,11 +171,6 @@ export default function ProfilePage() {
         open={open}
         onClose={() => setOpen(false)}
         title="Update Profile"
-        actions={
-          <>
-
-          </>
-        }
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <FormInput
